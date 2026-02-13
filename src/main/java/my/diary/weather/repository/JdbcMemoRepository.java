@@ -10,11 +10,11 @@ import javax.sql.DataSource;
 import java.util.List;
 
 @Repository
-public class JdbcMemeRepository {
+public class JdbcMemoRepository {
     private JdbcTemplate jdbcTemplate;
 
     @Autowired
-    public JdbcMemeRepository(DataSource dataSource) {
+    public JdbcMemoRepository(DataSource dataSource) {
         jdbcTemplate = new JdbcTemplate(dataSource);
     }
 

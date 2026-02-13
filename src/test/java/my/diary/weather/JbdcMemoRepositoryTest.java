@@ -1,8 +1,7 @@
 package my.diary.weather;
 
-import jakarta.transaction.Transactional;
 import my.diary.weather.model.Memo;
-import my.diary.weather.repository.JdbcMemeRepository;
+import my.diary.weather.repository.JdbcMemoRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -18,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 public class JbdcMemoRepositoryTest {
 
     @Autowired
-    JdbcMemeRepository jdbcMemeRepository;
+    JdbcMemoRepository jdbcMemoRepository;
 
     @Test
     void insertMemoTest() {
@@ -27,16 +26,16 @@ public class JbdcMemoRepositoryTest {
         Memo newMeno = new Memo(2, "this is old memo~");
 
         // when
-        jdbcMemeRepository.save(newMeno);
+        jdbcMemoRepository.save(newMeno);
 
         // then
-        Optional<Memo> result = Optional.ofNullable(jdbcMemeRepository.findById(2));
+        Optional<Memo> result = Optional.ofNullable(jdbcMemoRepository.findById(2));
         assertEquals(result.get().getText(), "this is old memo~");
     }
 
     @Test
     void findAllMemoTest() {
-        List<Memo> memoList = jdbcMemeRepository.findAll();
+        List<Memo> memoList = jdbcMemoRepository.findAll();
         System.out.println(memoList);
         assertNotNull(memoList);
     }
