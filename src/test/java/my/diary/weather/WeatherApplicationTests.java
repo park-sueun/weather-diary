@@ -8,6 +8,8 @@ import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest
 class WeatherApplicationTests {
 
+    // test 코드 작성 give - when -then 구조로 작성하기
+
     @Test
     void equalTest() {
         assertEquals(1, 1);
