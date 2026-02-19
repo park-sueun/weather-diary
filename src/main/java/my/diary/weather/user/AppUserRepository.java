@@ -1,6 +1,5 @@
-package my.diary.weather.repository;
+package my.diary.weather.user;
 
-import my.diary.weather.model.AppUser;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

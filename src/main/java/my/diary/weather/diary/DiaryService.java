@@ -1,4 +1,4 @@
-package my.diary.weather.service;
+package my.diary.weather.diary;
 
 import org.springframework.stereotype.Service;
 

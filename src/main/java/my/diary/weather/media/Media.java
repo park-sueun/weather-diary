@@ -1,7 +1,8 @@
-package my.diary.weather.model;
+package my.diary.weather.media;
 
 import jakarta.persistence.*;
 import lombok.*;
+import my.diary.weather.diary.Diary;
 import my.diary.weather.global.entity.BaseTimeEntity;
 
 @Entity
@@ -33,7 +34,7 @@ public class Media extends BaseTimeEntity {
         this.mediaType = mediaType;
     }
 
-    void attachTo(Diary diary) {
+    public void attachTo(Diary diary) {
         this.diary = diary;
     }
 }

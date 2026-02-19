@@ -1,4 +1,4 @@
-package my.diary.weather.model;
+package my.diary.weather.weather;
 
 import jakarta.persistence.*;
 import lombok.*;

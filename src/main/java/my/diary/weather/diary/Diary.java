@@ -1,8 +1,11 @@
-package my.diary.weather.model;
+package my.diary.weather.diary;
 
 import jakarta.persistence.*;
 import lombok.*;
 import my.diary.weather.global.entity.BaseTimeEntity;
+import my.diary.weather.user.AppUser;
+import my.diary.weather.media.Media;
+import my.diary.weather.weather.Weather;
 
 import java.time.LocalDate;
 import java.util.ArrayList;

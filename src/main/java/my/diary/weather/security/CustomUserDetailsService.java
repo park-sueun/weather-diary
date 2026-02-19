@@ -1,8 +1,8 @@
 package my.diary.weather.security;
 
 import lombok.RequiredArgsConstructor;
-import my.diary.weather.model.AppUser;
-import my.diary.weather.repository.AppUserRepository;
+import my.diary.weather.user.AppUser;
+import my.diary.weather.user.AppUserRepository;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.*;
 

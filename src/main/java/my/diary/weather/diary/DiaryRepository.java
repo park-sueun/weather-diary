@@ -1,5 +1,4 @@
-package my.diary.weather.repository;
-import my.diary.weather.model.Diary;
+package my.diary.weather.diary;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
