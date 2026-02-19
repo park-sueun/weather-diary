@@ -45,8 +45,3 @@ public class AppUser extends BaseTimeEntity {
     }
 }
 
-enum UserRole {
-    USER,
-    ADMIN
-}
-

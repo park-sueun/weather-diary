@@ -1,4 +1,4 @@
-package my.diary.weather.security;
+package my.diary.weather.global.security;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtException;

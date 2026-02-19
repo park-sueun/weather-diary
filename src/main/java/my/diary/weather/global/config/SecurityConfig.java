@@ -1,9 +1,10 @@
 package my.diary.weather.global.config;
 
 import lombok.RequiredArgsConstructor;
-import my.diary.weather.security.CustomUserDetailsService;
-import my.diary.weather.security.JwtAuthenticationFilter;
-import my.diary.weather.security.JwtTokenProvider;
+import my.diary.weather.global.security.CustomUserDetailsService;
+import my.diary.weather.global.security.JwtAuthenticationFilter;
+import my.diary.weather.global.security.JwtTokenProvider;
+import my.diary.weather.user.UserRole;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -47,6 +48,10 @@ public class SecurityConfig {
                 .userDetailsService(userDetailsService)
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/auth/**").permitAll()
+                        .requestMatchers("/api/admin").hasRole("ADMIN")
+                        .requestMatchers("/api/user").hasRole("USER")
+                        .requestMatchers("/api/test/admin").hasRole("ADMIN")
+                        .requestMatchers("/api/test/user").hasRole("USER")
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
