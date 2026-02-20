@@ -43,7 +43,7 @@ public class Diary extends BaseTimeEntity {
 
     // 1:1 (Diary가 소유)
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, optional = false, orphanRemoval = true)
-    @JoinColumn(name = "weather_id", nullable = false,
+    @JoinColumn(name = "weather_id", nullable = true,
             foreignKey = @ForeignKey(name = "fk_diary_weather"))
     private Weather weather;
 
@@ -52,7 +52,7 @@ public class Diary extends BaseTimeEntity {
     private final List<Media> mediaList = new ArrayList<>();
 
     @Builder
-    private Diary(AppUser user, LocalDate diaryDate, String content, Weather weather) {
+    private Diary(AppUser user, LocalDate diaryDate, String location, String content, Weather weather) {
         this.user = user;
         this.diaryDate = diaryDate;
         this.content = content;
