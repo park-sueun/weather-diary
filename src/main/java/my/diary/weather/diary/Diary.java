@@ -52,15 +52,36 @@ public class Diary extends BaseTimeEntity {
     private final List<Media> mediaList = new ArrayList<>();
 
     @Builder
-    private Diary(AppUser user, LocalDate diaryDate, String location, String content, Weather weather) {
+    private Diary(AppUser user, LocalDate diaryDate, String content, Weather weather) {
         this.user = user;
         this.diaryDate = diaryDate;
         this.content = content;
         this.weather = weather;
     }
 
+    // ⭐ Factory Method
+    public static Diary of(AppUser user,
+                           LocalDate diaryDate,
+                           String content,
+                           Weather weather) {
+
+        if (content == null || content.isBlank()) {
+            throw new IllegalArgumentException("Diary content must not be empty");
+        }
+
+        if (diaryDate == null) {
+            throw new IllegalArgumentException("Diary date is required");
+        }
+
+        return new Diary(user, diaryDate, content, weather);
+    }
+
     public void updateContent(String content) {
         this.content = content;
+    }
+
+    public void updateWeather(Weather weather) {
+        this.weather = weather;
     }
 
     public void addMedia(Media media) {
