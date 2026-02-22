@@ -6,12 +6,15 @@ import my.diary.weather.user.AppUser;
 import my.diary.weather.user.AppUserRepository;
 import my.diary.weather.weather.Weather;
 import my.diary.weather.weather.WeatherService;
+import org.springframework.cglib.core.Local;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -116,13 +119,33 @@ public class DiaryService {
         List<Diary> diaries =
                 diaryRepository.findAllByUserIdAndDiaryDateBetween(userId, start, end);
 
-        List<CalendarDayResponse> days = diaries.stream()
-                .map(CalendarDayResponse::from)
-                .toList();
+        Map<LocalDate, Diary> diaryMap = diaries.stream()
+                .collect(Collectors.toMap(
+                        Diary::getDiaryDate,
+                        d -> d
+                ));
 
-        return new CalendarResponse(
-                year, month, days
-        );
+        List<CalendarResponse.DayInfo> days =
+                start.datesUntil(end)
+                        .map(date -> {
+                            Diary diary = diaryMap.get(date);
+
+                            if (diary == null) {
+                                return CalendarResponse.DayInfo.of(
+                                        date.toString(),
+                                        false,
+                                        null
+                                );
+                            }
+
+                            return CalendarResponse.DayInfo.of(
+                                    date.toString(),
+                                    true,
+                                    diary.getWeather().getMain()
+                            );
+                        }).toList();
+
+        return CalendarResponse.of(year, month, days);
     }
 
     public DiaryResponse getByDiaryDate(Long userId, LocalDate date) {
