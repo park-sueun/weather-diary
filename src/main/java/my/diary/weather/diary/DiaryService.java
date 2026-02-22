@@ -124,4 +124,12 @@ public class DiaryService {
                 year, month, days
         );
     }
+
+    public DiaryResponse getByDiaryDate(Long userId, LocalDate date) {
+        Diary diary = diaryRepository
+                .findByUser_IdAndDiaryDate(userId, date)
+                .orElseThrow(() -> new IllegalStateException("Diary not found"));
+
+        return DiaryResponse.from(diary);
+    }
 }

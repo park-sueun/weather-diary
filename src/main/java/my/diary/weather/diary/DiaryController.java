@@ -7,6 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("api/diaries")
@@ -23,13 +25,14 @@ public class DiaryController {
         return diaryService.create(user.getUserId(), req);
     }
 
-    @GetMapping("/{id}")
-    public DiaryResponse get(
+    @GetMapping("/{date}")
+    public DiaryResponse getByDate(
             @AuthenticationPrincipal CustomUserDetails user,
-            @PathVariable Long id
+            @PathVariable LocalDate date
     ) {
-        return diaryService.get(user.getUserId(), id);
+        return diaryService.getByDiaryDate(user.getUserId(), date);
     }
+
 
     @PatchMapping("/{id}")
     public DiaryResponse patch(
