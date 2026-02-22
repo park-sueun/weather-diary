@@ -9,4 +9,5 @@ import java.util.Optional;
 public interface DiaryRepository extends JpaRepository<Diary, Long> {
     boolean existsByUser_IdAndDiaryDate(Long userId, LocalDate date);
     Optional<Diary> findByUser_IdAndDiaryDate(Long userId, LocalDate date);
+    Optional<Diary> findByIdAndUserId(Long diaryId, Long userId);
 }
