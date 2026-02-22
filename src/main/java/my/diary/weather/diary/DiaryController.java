@@ -1,10 +1,7 @@
 package my.diary.weather.diary;
 
 import lombok.RequiredArgsConstructor;
-import my.diary.weather.diary.dto.DiaryCreateRequest;
-import my.diary.weather.diary.dto.DiaryCreateResponse;
-import my.diary.weather.diary.dto.DiaryResponse;
-import my.diary.weather.diary.dto.DiaryPatchRequest;
+import my.diary.weather.diary.dto.*;
 import my.diary.weather.global.security.CustomUserDetails;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -49,6 +46,19 @@ public class DiaryController {
             @PathVariable Long id
     ) {
         diaryService.delete(user.getUserId(), id);
+    }
+
+    @GetMapping("/calendar")
+    public CalendarResponse getCalendar(
+            @AuthenticationPrincipal CustomUserDetails user,
+            @RequestParam int year,
+            @RequestParam int month
+    ) {
+        return diaryService.getCalendar(
+                user.getUserId(),
+                year,
+                month
+        );
     }
 
 }

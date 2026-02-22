@@ -1,10 +1,7 @@
 package my.diary.weather.diary;
 
 import lombok.RequiredArgsConstructor;
-import my.diary.weather.diary.dto.DiaryCreateRequest;
-import my.diary.weather.diary.dto.DiaryCreateResponse;
-import my.diary.weather.diary.dto.DiaryResponse;
-import my.diary.weather.diary.dto.DiaryPatchRequest;
+import my.diary.weather.diary.dto.*;
 import my.diary.weather.user.AppUser;
 import my.diary.weather.user.AppUserRepository;
 import my.diary.weather.weather.Weather;
@@ -14,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -105,5 +103,25 @@ public class DiaryService {
                 .orElseThrow(() -> new IllegalStateException("Diary not found"));
 
         diaryRepository.delete(diary);
+    }
+
+    public CalendarResponse getCalendar(
+            Long userId,
+            int year,
+            int month
+    ) {
+        LocalDate start = LocalDate.of(year, month, 1);
+        LocalDate end = start.withDayOfMonth(start.lengthOfMonth());
+
+        List<Diary> diaries =
+                diaryRepository.findAllByUserIdAndDiaryDateBetween(userId, start, end);
+
+        List<CalendarDayResponse> days = diaries.stream()
+                .map(CalendarDayResponse::from)
+                .toList();
+
+        return new CalendarResponse(
+                year, month, days
+        );
     }
 }
