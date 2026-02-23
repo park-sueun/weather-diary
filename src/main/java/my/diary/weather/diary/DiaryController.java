@@ -25,10 +25,18 @@ public class DiaryController {
         return diaryService.create(user.getUserId(), req);
     }
 
-    @GetMapping("/{date}")
+    @GetMapping("/{id}")
     public DiaryResponse getByDate(
             @AuthenticationPrincipal CustomUserDetails user,
-            @PathVariable LocalDate date
+            @PathVariable Long id
+    ) {
+        return diaryService.get(user.getUserId(), id);
+    }
+
+    @GetMapping
+    public DiaryResponse getByDate(
+            @AuthenticationPrincipal CustomUserDetails user,
+            @RequestParam LocalDate date
     ) {
         return diaryService.getByDiaryDate(user.getUserId(), date);
     }
